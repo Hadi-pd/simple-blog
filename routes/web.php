@@ -24,4 +24,11 @@ Route::get('/dashboard', function () {
 Route::get('/post/{id}',function($id){
     return view('post');
 })->name('post.show');
+
+// Route::get('/profile', fn() => 'profile')->name('profile');
+
+Route::get('/profile', function () {
+    return 'profile';
+})->name('profile');
+
 require __DIR__.'/auth.php';
