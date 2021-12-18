@@ -1,6 +1,9 @@
-@extends('app')
+<x-app-layout>
 
-@section('main')
+<x-slot name="title">
+    - صفحه اصلی
+</x-slot>
+
 <main>
     <article class="container article">
         <div class="articles">
@@ -161,4 +164,4 @@
         <a href="" class="pagination__page pagination__page--next"></a>
     </div>
 </main>
-@endsection
+</x-app-layout>
