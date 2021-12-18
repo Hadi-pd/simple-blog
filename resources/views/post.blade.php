@@ -1,6 +1,9 @@
-@extends('app')
+<x-app-layout>
 
-@section('main')
+<x-slot name="title">
+    - صفحه پست
+</x-slot>
+
 <main>
     <div class="container article">
         <article class="single-page">
@@ -297,4 +300,4 @@
         </div>
     </div>
 </main>
-@endsection
+</x-app-layout>
