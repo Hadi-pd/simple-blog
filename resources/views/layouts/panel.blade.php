@@ -24,8 +24,8 @@
     </div>
 
     <ul>
-        <li class="item-li i-dashboard is-active"><a href="index.html">پیشخوان</a></li>
-        <li class="item-li i-users"><a href="users.html"> کاربران</a></li>
+        <li class="item-li i-dashboard is-active"><a href="{{ route('dashboard') }}">پیشخوان</a></li>
+        <li class="item-li i-users"><a href="{{ route('users.index') }}"> کاربران</a></li>
         <li class="item-li i-categories"><a href="categories.html">دسته بندی ها</a></li>
         <li class="item-li i-articles"><a href="articles.html">مقالات</a></li>
         <li class="item-li i-comments"><a href="comments.html"> نظرات</a></li>
