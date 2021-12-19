@@ -22,6 +22,7 @@ class User extends Authenticatable
         'mobile',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -42,4 +43,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getRoleInFarsi()
+    {
+        if ($this->role === 'user') return 'کاربر عادی';
+        if ($this->role === 'author') return 'نویسنده';
+        if ($this->role === 'admin') return 'مدیر';
+    }
+    public function getCreatedAtInJalali()
+    {
+        return verta($this->created_at)->format('Y/m/d');
+    }
+    
 }
