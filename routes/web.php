@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('panel.index');
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/post/{id}',function($id){
