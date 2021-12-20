@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0;">
     <title>پنل وبلاگ وب آموز {{ $title ?? '' }}</title>
+    {{ $styles ?? '' }}
     <link rel="stylesheet" href="{{ asset('blog/panel/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('blog/panel/css/responsive_991.css') }}" media="(max-width:991px)">
     <link rel="stylesheet" href="{{ asset('blog/panel/css/responsive_768.css') }}" media="(max-width:768px)">
@@ -41,7 +42,15 @@
     </div>
     {{ $slot }}
 </div>
-</body>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(Session::has('status'))
+<script>
+    Swal.fire({ title: "{{ session('status') }}", confirmButtonText: 'تایید', icon: 'success' })
+</script>
+@endif
+
 <script src="{{ asset('blog/panel/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('blog/panel/js/js.js') }}"></script>
+{{ $scripts ?? '' }}
+</body>
 </html>

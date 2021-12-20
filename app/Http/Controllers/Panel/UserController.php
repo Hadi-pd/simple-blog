@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Panel\User\CreateUserRequest;
+use App\Http\Requests\Panel\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate();
+
         return view('panel.users.index', compact('users'));
     }
 
@@ -20,40 +23,39 @@ class UserController extends Controller
         return view('panel.users.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'mobile' => 'required|string|max:255|unique:users',
-            'role' => 'required|max:255'
-        ]);
-
-        $data = $request->only(['name', 'email', 'mobile', 'role']);
+        $data = $request->validated();
         $data['password'] = Hash::make('password');
 
         User::create($data);
 
+        $request->session()->flash('status', 'کاربر به درستی ایجاد شد!');
+
         return redirect()->route('users.index');
     }
 
-    public function show($id)
+    public function edit(User $user)
     {
-        //
+        return view('panel.users.edit', compact('user'));
     }
 
-    public function edit($id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        return view('panel.users.edit');
+        $user->update(
+            $request->validated()
+        );
+        
+        $request->session()->flash('status', 'اطلاعات کاربر به درستی ویرایش شد!');
+
+        return redirect()->route('users.index');
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Request $request, User $user)
     {
-        //
-    }
+        $user->delete();
+        $request->session()->flash('status', 'کاربر مد نظر به درستی حذف شد!');
 
-    public function destroy($id)
-    {
-        //
+        return back();
     }
 }
