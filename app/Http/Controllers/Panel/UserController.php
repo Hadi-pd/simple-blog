@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::all();
+
         return view('panel.users.index', compact('users'));
     }
 
@@ -23,10 +25,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'mobile' => 'required|string|max:255|unique:users',
-            'role' => 'required|max:255'
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'max:255', 'unique:users'],
+            'role' => ['required', 'max:255']
         ]);
 
         $data = $request->only(['name', 'email', 'mobile', 'role']);
@@ -37,19 +39,25 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function show($id)
+    public function edit(User $user)
     {
-        //
+        return view('panel.users.edit', compact('user'));
     }
 
-    public function edit($id)
+    public function update(Request $request, User $user)
     {
-        return view('panel.users.edit');
-    }
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'mobile' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required', 'max:255']
+        ]);
 
-    public function update(Request $request, $id)
-    {
-        //
+        $user->update(
+            $request->only(['name', 'email', 'mobile', 'role'])
+        );
+
+        return redirect()->route('users.index');
     }
 
     public function destroy($id)
