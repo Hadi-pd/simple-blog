@@ -44,7 +44,7 @@
 {{ $salutation }}
 @else
 با تشکر,<br>
-تیم ابتکارنو
+تیم وب آموز
 @endif
 
 {{-- Subcopy --}}

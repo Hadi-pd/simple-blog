@@ -2,6 +2,9 @@
   <x-slot name="title">
     - مدیریت کاربران
   </x-slot>
+  <x-slot name="styles">
+    <link rel="stylesheet" href="{{ asset('blog/css/style.css') }}">
+  </x-slot>
     <div class="breadcrumb">
       <ul>
           <li><a href="{{ route('dashboard') }}" >پیشخوان</a></li>
@@ -17,7 +20,7 @@
         </div>
         <div class="d-flex flex-space-between item-center flex-wrap padding-30 border-radius-3 bg-white">
         </div>
-        <div class="table__box">
+        <div class="bg-white table__box">
             <table class="table">
                 <thead role="rowgroup">
                 <tr role="row" class="title-row">
@@ -53,6 +56,7 @@
                   @endforeach
                 </tbody>
             </table>
+            {{ $users->links() }}
         </div>
     </div>
     <x-slot name="scripts">
