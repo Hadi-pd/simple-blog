@@ -42,6 +42,13 @@
     </div>
     {{ $slot }}
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(Session::has('status'))
+<script>
+    Swal.fire({ title: "{{ session('status') }}", confirmButtonText: 'تایید', icon: 'success' })
+</script>
+@endif
+
 <script src="{{ asset('blog/panel/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('blog/panel/js/js.js') }}"></script>
 {{ $scripts ?? '' }}

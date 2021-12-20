@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(1);
+        $users = User::paginate();
 
         return view('panel.users.index', compact('users'));
     }
@@ -30,6 +30,8 @@ class UserController extends Controller
 
         User::create($data);
 
+        $request->session()->flash('status', 'کاربر به درستی ایجاد شد!');
+
         return redirect()->route('users.index');
     }
 
@@ -43,13 +45,16 @@ class UserController extends Controller
         $user->update(
             $request->validated()
         );
+        
+        $request->session()->flash('status', 'اطلاعات کاربر به درستی ویرایش شد!');
 
         return redirect()->route('users.index');
     }
 
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
         $user->delete();
+        $request->session()->flash('status', 'کاربر مد نظر به درستی حذف شد!');
 
         return back();
     }

@@ -63,7 +63,19 @@
       <script>
         function destroyUser(event, id) {
           event.preventDefault();
-          document.getElementById(`destroy-user-${id}`).submit()
+          Swal.fire({
+          title: 'ایا مطمئن هستید این کار را میخواهید حذف کنید؟',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: 'rgb(221, 51, 51)',
+          cancelButtonColor: 'rgb(48, 133, 214)',
+          confirmButtonText: 'بله حذف کن!',
+          cancelButtonText: 'کنسل'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            document.getElementById(`destroy-user-${id}`).submit()
+          }
+        })
         }
       </script>
     </x-slot>
