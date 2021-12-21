@@ -40,6 +40,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        session()->flash('status', 'دسته بندی حذف شد!');
+
+        return back();
     }
 }
