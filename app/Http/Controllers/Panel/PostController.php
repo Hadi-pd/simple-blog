@@ -13,7 +13,14 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('panel.posts.index');
+        if(auth()->user()->role === 'author') {
+            $posts = Post::where('user_id', auth()->user()->id)->with('user')->paginate();
+        } else {
+            $posts = Post::with('user')->paginate();
+        }
+
+
+        return view('panel.posts.index', compact('posts'));
     }
 
     public function create()
@@ -46,6 +53,8 @@ class PostController extends Controller
         );
 
         $post->categories()->sync($categoryIds);
+
+        session()->flash('status', 'مقاله به درستی ایجاد شد.');
 
         return redirect()->route('posts.index');
     }

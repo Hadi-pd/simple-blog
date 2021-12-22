@@ -31,4 +31,14 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCreatedAtInJalali()
+    {
+        return verta($this->created_at)->format('Y/m/d');
+    }
 }
