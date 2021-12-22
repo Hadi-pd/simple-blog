@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Panel\Post\CreatePostRequest;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -19,16 +21,15 @@ class PostController extends Controller
         return view('panel.posts.create');
     }
 
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'categories' => ['required', 'array'],
-            'categories.*' => ['required', 'string'],
-            'banner' => ['required', 'image']
-        ]);
-
         $categoryIds = Category::whereIn('name', $request->categories)->get()->pluck('id')->toArray();
+
+        if(count($categoryIds) < 1) {
+            throw ValidationException::withMessages([
+                'categories' => ['دسته بندی یافت نشد.']
+            ]);
+        }
 
         $file = $request->file('banner');
 
@@ -36,7 +37,17 @@ class PostController extends Controller
 
         $file->storeAs('images/banners', $file_name, 'public_files');
 
-        return back();
+        $data = $request->validated();
+        $data['banner'] = $file_name;
+        $data['user_id'] = auth()->user()->id;
+
+        $post = Post::create(
+            $data
+        );
+
+        $post->categories()->sync($categoryIds);
+
+        return redirect()->route('posts.index');
     }
 
     public function edit($post)

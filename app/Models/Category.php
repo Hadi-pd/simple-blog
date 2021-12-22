@@ -10,11 +10,19 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','slug','category_id'
+        'name',
+        'slug',
+        'category_id'
     ];
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
     }
 
     public function getParentName()
