@@ -7,6 +7,8 @@
     @if(auth()->user()->role === 'admin' || auth()->user()->role === 'author')
     <li class="item-li i-articles @if(request()->is('panel/posts') || request()->is('panel/posts/*')) is-active @endif"><a href="{{ route('posts.index') }}">مقالات</a></li>
     @endif
-    <li class="item-li i-comments"><a href="comments.html"> نظرات</a></li>
-    <li class="item-li i-user__inforamtion"><a href="user-information.html">اطلاعات کاربری</a></li>
+    @if(auth()->user()->role === 'admin')
+    <li class="item-li i-comments @if(request()->is('panel/comments') || request()->is('panel/comments/*')) is-active @endif"><a href="{{ route('comments.index') }}"> نظرات</a></li>
+    @endif
+    <li class="item-li i-user__inforamtion @if(request()->is('profile')) is-active @endif"><a href="{{ route('profile') }}">اطلاعات کاربری</a></li>
 </ul>
