@@ -15,7 +15,7 @@
     <span class="bars d-none padding-0-18"></span>
     <a class="header__logo  d-none" href="https://webamooz.net"></a>
     <div class="profile__info border cursor-pointer text-center">
-        <div class="avatar__img"><img src="{{ asset('blog/panel/img/pro.jpg') }}" class="avatar___img">
+        <div class="avatar__img"><img src="{{ auth()->user()->getProfileUrl() }}" class="avatar___img">
             <input type="file" accept="image/*" class="hidden avatar-img__input">
             <div class="v-dialog__container" style="display: block;"></div>
             <div class="box__camera default__avatar"></div>
@@ -42,7 +42,7 @@
     </div>
     {{ $slot }}
 </div>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @if(Session::has('status'))
 <script>
     Swal.fire({ title: "{{ session('status') }}", confirmButtonText: 'تایید', icon: 'success' })
