@@ -16,6 +16,7 @@ class Comment extends Model
         'comment_id',
         'post_id',
     ];
+    protected $with = ['approvedReplies'];
 
     public function user()
     {
@@ -30,6 +31,11 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function approvedReplies()
+    {
+        return $this->replies()->where('is_approved', true);
     }
     
 
