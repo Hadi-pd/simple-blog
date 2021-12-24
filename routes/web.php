@@ -6,6 +6,7 @@ use App\Http\Controllers\Panel\EditorUploadController;
 use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\Panel\UserController;
 use App\Http\Controllers\Panel\CommentController;
+use App\Http\Controllers\panel\DashboardController;
 use App\Http\Controllers\panel\ProfileController;
 
 /*
@@ -23,19 +24,11 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
-Route::get('/dashboard', function () {
-    return view('panel.index');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
-Route::get('/post/{id}',function($id){
+Route::get('/post/{id}', function ($id) {
     return view('post');
 })->name('post.show');
-
-// Route::get('/profile', fn() => 'profile')->name('profile');
-
-// Route::middleware('auth')->get('/profile', function () {
-//     return 'profile';
-// })->name('profile');
 
 Route::middleware('auth')->get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::middleware('auth')->put('/profile', [ProfileController::class, 'update'])->name('profile.update');
