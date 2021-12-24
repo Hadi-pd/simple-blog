@@ -11,7 +11,7 @@ class ShowPostController extends Controller
     {
         $post->load(['user', 'categories', 'comments' => function($query) {
             return $query->where('comment_id', null);
-        }]);
+        }])->loadCount('comments');
 
         return view('post', compact('post'));
     }
