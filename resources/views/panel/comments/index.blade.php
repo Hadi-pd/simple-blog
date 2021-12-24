@@ -21,7 +21,7 @@
             </div>
     
     
-            <div class="table__box">
+            <div class="bg-white table__box">
                 <table class="table">
                     <thead role="rowgroup">
                     <tr role="row" class="title-row">
@@ -67,6 +67,7 @@
     
                     </tbody>
                 </table>
+                {{ $comments->appends(request()->query())->links() }}
             </div>
         </div>
         
