@@ -9,7 +9,7 @@
             <div class="articles">
                 @foreach($posts as $post)
                 <div class="articles__item">
-                    <a href="{{ route('post.show', 1) }}" class="articles__link">
+                    <a href="{{ route('post.show', $post->slug) }}" class="articles__link">
                         <div class="articles__img">
                             <img src="{{ $post->getBannerUrl() }}" class="articles__img-src">
                         </div>

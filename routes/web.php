@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ShowPostController;
 use App\Http\Controllers\Panel\UserController;
 use App\Http\Controllers\Panel\CategoryController;
 use App\Http\Controllers\Panel\CommentController;
@@ -14,9 +15,7 @@ Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
-Route::get('/post/{id}', function ($id) {
-    return view('post');
-})->name('post.show');
+Route::get('/post/{post:slug}', [ShowPostController::class, 'show'])->name('post.show');
 
 Route::middleware('auth')->get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::middleware('auth')->put('/profile', [ProfileController::class, 'update'])->name('profile.update');
