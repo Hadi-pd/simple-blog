@@ -825,11 +825,13 @@ textarea {
 }
 
 .header__logo {
-    height: 44px;
+    height: 80px;
     width: 200px;
-    background: url("../img/weblogo.png") no-repeat;
-    margin-top: -10px;
+    background: url("../img/logotop.png") no-repeat;
+    background-size: cover;
+    /* margin-top: -10px; */
     margin-right: 20px;
+    
 }
 
 .logout:before {
