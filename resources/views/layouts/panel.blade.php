@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0;">
-    <title>پنل وبلاگ وب آموز {{ $title ?? '' }}</title>
+    <title>پنل مدیریت {{ $title ?? '' }}</title>
     {{ $styles ?? '' }}
     <link rel="stylesheet" href="{{ asset('blog/panel/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('blog/panel/css/responsive_991.css') }}" media="(max-width:991px)">
@@ -28,7 +28,7 @@
 
 </div>
 <div class="content">
-    <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+    <div class="header d-flex item-center bg-block width-100 border-bottom padding-12-30">
         <div class="header__right d-flex flex-grow-1 item-center">
             <span class="bars"></span>
             <a class="header__logo" href="https://webamooz.net"></a>
