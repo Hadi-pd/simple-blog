@@ -22,7 +22,9 @@
                 </div>
                 <div class="single-page__title">
                     <h1 class="single-page__h1">{{ $post->title }}</h1>
-                    <span class="single-page__like"></span>
+                    @auth
+                    <span class="single-page__like @if($post->is_user_liked) single-page__like--is-active @endif"></span>
+                    @endauth
                 </div>
                 <div class="single-page__details">
                     <div class="single-page__author">نویسنده : {{ $post->user->name }}</div>
@@ -77,6 +79,20 @@
             function setReplyValue(id) {
                 document.getElementById('reply-input').value = id;
             }
+                
+            $(".single-page__like").on("click", function () {
+                fetch('{{ route("like.post", $post->slug) }}', {
+                    method: 'post',
+                    headers: {
+                        'X-CSRF-Token': '{{ csrf_token() }}'
+                    }
+                }).then((response) => {
+                    if(response.ok) {
+                        $(this).toggleClass("single-page__like--is-active");
+                    }
+                })
+                
+            })
         </script>
     </x-slot>
     </x-app-layout>
