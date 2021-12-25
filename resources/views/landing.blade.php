@@ -7,7 +7,7 @@
     <main>
         <article class="container article">
             <div class="articles">
-                @foreach($posts as $post)
+                @forelse($posts as $post)
                 <div class="articles__item">
                     <a href="{{ route('post.show', $post->slug) }}" class="articles__link">
                         <div class="articles__img">
@@ -22,7 +22,9 @@
                         </div>
                     </a>
                 </div>
-                @endforeach
+                @empty
+                <p>هیچ مقاله ای یافت نشد!</p>
+                @endforelse
             </div>
         </article>
         {{ $posts->links() }}
