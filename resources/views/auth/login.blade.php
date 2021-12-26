@@ -2,7 +2,7 @@
 <x-slot name="title">
     - صفحه ورود
 </x-slot>
-<main class="bg--white">
+{{-- <main class="bg--white">
     <div class="container">
         <div class="sign-page">
             <h1 class="sign-page__title">ورود به وب‌سایت</h1>
@@ -43,5 +43,39 @@
             </form>
         </div>
     </div>
-</main>
+</main> --}}
+
+
+<form  class="sign-log-form-container colStart" action="{{ route('login.store') }}" method="POST">
+    @csrf
+    <label for="">ورود به سایت</label>
+    <label for="">برای دانلود مجلات ام آی ابتدا بایستی وارد شوید</label>
+    <input type="text" name="email" placeholder="ایمیل">
+    @error('email')
+    <p style="margin-bottom: 1rem;
+            color: #D8000C;
+            text-align: right;"
+    >
+        {{ $message }}
+    </p>
+@enderror
+    <input type="password" name="password" placeholder="گذرواژه">
+    @error('password')
+    <p style="margin-bottom: 1rem;
+            color: #D8000C;
+            text-align: right;"
+    >
+        {{ $message }}
+    </p>
+@enderror
+
+    <div class="rowBetCenter">
+        <button type="submit">ورود</button>
+        <a href="{{ route('register') }}" class="color--46b2f0">  
+            <button>ثبت نام</button>
+        </a>
+    </div>
+</form>
+
+
 </x-app-layout>
