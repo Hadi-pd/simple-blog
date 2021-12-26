@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('/blog/mi/font/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('/blog/mi/css/style.css') }}">
 
-    <title>Sign in</title>
+    <title>Mi {{ $title ?? '' }}</title>
 </head>
 
 <body>
